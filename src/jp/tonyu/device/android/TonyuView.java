@@ -1,7 +1,7 @@
 package jp.tonyu.device.android;
 
 import java.util.List;
-
+//git@github.com:hoge1e3/RibbonMania_android.git
 import jp.tonyu.kernel.screen.Screen;
 import jp.tonyu.kernel.screen.pattern.CharPattern;
 import jp.tonyu.kernel.screen.sprite.ImageSprite;
