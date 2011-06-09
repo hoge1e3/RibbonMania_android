@@ -51,52 +51,44 @@ public class TonyuView extends View implements Screen {
 		super(context);
 		list=p;
 		Log.d("pp", "sz="+list.size());
-		// TODO 自動生成されたコンストラクター・スタブ
 	}
 
 	@Override
 	public ImageSprite addImageSprite(double x, double y, CharPattern p,
 			boolean f, double order, double angle, double alpha, double scaleX,
 			double scaleY) {
-		// TODO 自動生成されたメソッド・スタブ
 		return null;
 	}
 
 	@Override
 	public LineSprite addLineSprite(double sx, double sy, double dx, double dy,
 			int color) {
-		// TODO 自動生成されたメソッド・スタブ
 		return null;
 	}
 
 	@Override
 	public TextSprite addTextSprite(double x, double y, String text, int color,
 			double size, double order) {
-		// TODO 自動生成されたメソッド・スタブ
 		return null;
 	}
 
 	@Override
 	public void clearSprites() {
-		// TODO 自動生成されたメソッド・スタブ
 
 	}
 
 	@Override
 	public void drawSprites() {
-		// TODO 自動生成されたメソッド・スタブ
 
 	}
 
 	@Override
 	public int getMouseX() {
-		// TODO 自動生成されたメソッド・スタブ
 		return 0;
 	}
 
 	@Override
 	public int getMouseY() {
-		// TODO 自動生成されたメソッド・スタブ
 		return 0;
 	}
 
