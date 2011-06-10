@@ -16,8 +16,8 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 
-public class TonyuView extends View implements Screen {
-	@Override
+public class TonyuView extends SurfaceView implements Screen, SurfaceHolder.Callback {
+	/*@Override
 	protected void onDraw(Canvas canvas) {
 		Log.d("pp","onDraw");
 		Paint p=new Paint();
@@ -27,30 +27,34 @@ public class TonyuView extends View implements Screen {
 			canvas.drawBitmap(bitmap.bmp, i*10, i*10+50, p);
 		}
 		//redraw(list);
-	}
+	}*/
 	final List<CharPattern> list;
-
-
-	/*public synchronized void redraw(List<CharPattern> l) {
+	int bgcolor=Color.argb(255, 20, 80, 180) ;//(20,80,180);
+	public synchronized void redraw() {
 		SurfaceHolder h=getHolder();
 		if (h==null) return;
 		Canvas canvas = h.lockCanvas();
 		Log.d("pp","canvas="+canvas);
 		if (canvas==null) return;
 		Log.d("pp","redraw?");
-		canvas.drawColor(Color.WHITE);
+		canvas.drawColor(bgcolor);
 		//Paint paint=new Paint();
-		for (int i=0 ; i<l.size(); i++) {
-			BitmapCharPattern bitmap=(BitmapCharPattern) l.get(i);
-			canvas.drawBitmap(bitmap.bmp, i*10, i*10, null);
+		//paint.setAlpha(128);
+		for (int i=0 ; i<list.size(); i++) {
+			BitmapCharPattern bitmap=(BitmapCharPattern) list.get(i);
+			//canvas.drawBitmap(bitmap.bmp, i*10, i*10, paint);
+			AndroidImageSprite sp = new AndroidImageSprite(i*10,i*10, bitmap,false,0,i,255-i*5,
+					1+((float)i)*0.1,1+((float)i)*0.1);
+			sp.draw(canvas);
 		}
 		//onRedraw(canvas);
 		h.unlockCanvasAndPost(canvas);
-	}*/
+	}
 	public TonyuView(Context context, List<CharPattern> p) {
 		super(context);
 		list=p;
 		Log.d("pp", "sz="+list.size());
+		getHolder().addCallback(this);
 	}
 
 	@Override
@@ -90,6 +94,21 @@ public class TonyuView extends View implements Screen {
 	@Override
 	public int getMouseY() {
 		return 0;
+	}
+	@Override
+	public void surfaceChanged(SurfaceHolder holder, int format, int width,
+			int height) {
+		// TODO 自動生成されたメソッド・スタブ
+
+	}
+	@Override
+	public void surfaceCreated(SurfaceHolder holder) {
+		redraw();
+	}
+	@Override
+	public void surfaceDestroyed(SurfaceHolder holder) {
+		// TODO 自動生成されたメソッド・スタブ
+
 	}
 
 }

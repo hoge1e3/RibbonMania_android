@@ -28,6 +28,7 @@ public class Start extends Activity {
       	AndroidPatternParser a = new AndroidPatternParser(b);
       	List<CharPattern> p = a.parse();
       	TonyuView t=new TonyuView(this,p);
+
       	setContentView(t);
     }
 }
