@@ -16,9 +16,9 @@ import android.graphics.Bitmap.Config;
 import android.graphics.Paint.Style;
 import android.util.Log;
 
-public class AndroidPatternParser implements PatternParser {
+public class BitmapPatternParser implements PatternParser {
 	//Bitmap img;
-	public AndroidPatternParser(Object r) {
+	public BitmapPatternParser(Object r) {
 		Bitmap img=(Bitmap)r;
 
 		height = img.getHeight();

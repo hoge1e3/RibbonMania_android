@@ -6,9 +6,9 @@ import android.graphics.Paint;
 import jp.tonyu.kernel.screen.pattern.CharPattern;
 import jp.tonyu.kernel.screen.sprite.ImageSprite;
 
-public class AndroidImageSprite extends ImageSprite implements SimpleDrawable {
+public class BitmapSprite extends ImageSprite implements SimpleDrawable {
 
-	public AndroidImageSprite(double x, double y, CharPattern p, boolean f,
+	public BitmapSprite(double x, double y, CharPattern p, boolean f,
 			double order, double angle, double alpha, double scaleX,
 			double scaleY) {
 		super(x, y, p, f, order, angle, alpha, scaleX, scaleY);

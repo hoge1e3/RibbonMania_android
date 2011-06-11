@@ -1,7 +1,8 @@
 package jp.tonyu.device.android;
 
 import java.util.List;
-//git@github.com:hoge1e3/RibbonMania_android.git
+import java.util.Vector;
+
 import jp.tonyu.kernel.screen.Screen;
 import jp.tonyu.kernel.screen.pattern.CharPattern;
 import jp.tonyu.kernel.screen.sprite.ImageSprite;
@@ -10,11 +11,9 @@ import jp.tonyu.kernel.screen.sprite.TextSprite;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
 
 public class TonyuView extends SurfaceView implements Screen, SurfaceHolder.Callback {
 	/*@Override
@@ -28,32 +27,30 @@ public class TonyuView extends SurfaceView implements Screen, SurfaceHolder.Call
 		}
 		//redraw(list);
 	}*/
-	final List<CharPattern> list;
+	private List<SimpleDrawable> slist = new Vector<SimpleDrawable>();
 	int bgcolor=Color.argb(255, 20, 80, 180) ;//(20,80,180);
-	public synchronized void redraw() {
+	public synchronized void redraw(List<CharPattern> list) {
 		SurfaceHolder h=getHolder();
 		if (h==null) return;
 		Canvas canvas = h.lockCanvas();
-		Log.d("pp","canvas="+canvas);
+		//Log.d("pp","canvas="+canvas);
 		if (canvas==null) return;
-		Log.d("pp","redraw?");
+		//Log.d("pp","redraw?");
 		canvas.drawColor(bgcolor);
 		//Paint paint=new Paint();
 		//paint.setAlpha(128);
 		for (int i=0 ; i<list.size(); i++) {
 			BitmapCharPattern bitmap=(BitmapCharPattern) list.get(i);
 			//canvas.drawBitmap(bitmap.bmp, i*10, i*10, paint);
-			AndroidImageSprite sp = new AndroidImageSprite(i*10,i*10, bitmap,false,0,i,255-i*5,
+			BitmapSprite sp = new BitmapSprite(i*10,i*10, bitmap,false,0,i,255-i*5,
 					1+((float)i)*0.1,1+((float)i)*0.1);
 			sp.draw(canvas);
 		}
 		//onRedraw(canvas);
 		h.unlockCanvasAndPost(canvas);
 	}
-	public TonyuView(Context context, List<CharPattern> p) {
+	public TonyuView(Context context) {
 		super(context);
-		list=p;
-		Log.d("pp", "sz="+list.size());
 		getHolder().addCallback(this);
 	}
 
@@ -61,7 +58,9 @@ public class TonyuView extends SurfaceView implements Screen, SurfaceHolder.Call
 	public ImageSprite addImageSprite(double x, double y, CharPattern p,
 			boolean f, double order, double angle, double alpha, double scaleX,
 			double scaleY) {
-		return null;
+		BitmapSprite res=new BitmapSprite(x,y,p,f,order,angle,alpha,scaleX,scaleY);
+		slist.add(res);
+		return res;
 	}
 
 	@Override
@@ -78,12 +77,22 @@ public class TonyuView extends SurfaceView implements Screen, SurfaceHolder.Call
 
 	@Override
 	public void clearSprites() {
-
+		slist.clear();
 	}
 
 	@Override
 	public void drawSprites() {
-
+		SurfaceHolder h=getHolder();
+		if (h==null) return;
+		Canvas canvas = h.lockCanvas();
+		//Log.d("pp","canvas="+canvas);
+		if (canvas==null) return;
+		//Log.d("pp","redraw?");
+		canvas.drawColor(bgcolor);
+		for (SimpleDrawable d:slist) {
+			d.draw(canvas);
+		}
+		h.unlockCanvasAndPost(canvas);
 	}
 
 	@Override
@@ -103,7 +112,7 @@ public class TonyuView extends SurfaceView implements Screen, SurfaceHolder.Call
 	}
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
-		redraw();
+		//redraw();
 	}
 	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
