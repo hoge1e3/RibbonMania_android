@@ -12,10 +12,11 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-public class TonyuView extends SurfaceView implements Screen, SurfaceHolder.Callback {
+public class TonyuView extends SurfaceView implements Screen {
 	/*@Override
 	protected void onDraw(Canvas canvas) {
 		Log.d("pp","onDraw");
@@ -51,7 +52,7 @@ public class TonyuView extends SurfaceView implements Screen, SurfaceHolder.Call
 	}
 	public TonyuView(Context context) {
 		super(context);
-		getHolder().addCallback(this);
+
 	}
 
 	@Override
@@ -66,7 +67,9 @@ public class TonyuView extends SurfaceView implements Screen, SurfaceHolder.Call
 	@Override
 	public LineSprite addLineSprite(double sx, double sy, double dx, double dy,
 			int color) {
-		return null;
+		AndroidLineSprite res = new AndroidLineSprite(sx,sy,dx,dy,color);
+		slist.add(res);
+		return res;
 	}
 
 	@Override
@@ -96,28 +99,32 @@ public class TonyuView extends SurfaceView implements Screen, SurfaceHolder.Call
 	}
 
 	@Override
-	public int getMouseX() {
-		return 0;
+	public double getMouseX() {
+		return mx;
 	}
 
 	@Override
-	public int getMouseY() {
-		return 0;
+	public double getMouseY() {
+		return my;
 	}
+	double mx,my;
 	@Override
-	public void surfaceChanged(SurfaceHolder holder, int format, int width,
-			int height) {
-		// TODO 自動生成されたメソッド・スタブ
-
+	public boolean onTouchEvent(MotionEvent event) {
+		//Log.d("pp","mouse"+event);
+		switch (event.getAction()) {
+		case MotionEvent.ACTION_MOVE:
+			mx=event.getX();
+			my=event.getY();
+			break;
+		case MotionEvent.ACTION_DOWN:
+			mx=event.getX();
+			my=event.getY();
+			break;
+		case MotionEvent.ACTION_UP:
+			mx=event.getX();
+			my=event.getY();
+			break;
+		}
+		return true;
 	}
-	@Override
-	public void surfaceCreated(SurfaceHolder holder) {
-		//redraw();
-	}
-	@Override
-	public void surfaceDestroyed(SurfaceHolder holder) {
-		// TODO 自動生成されたメソッド・スタブ
-
-	}
-
 }

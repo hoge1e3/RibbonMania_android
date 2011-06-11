@@ -5,6 +5,8 @@ import jp.tonyu.device.android.TonyuView;
 import jp.tonyu.kernel.Boot;
 import jp.tonyu.kernel.Global;
 import jp.tonyu.samples.first.Object1;
+import jp.tonyu.samples.ribbon.RGlobal;
+import jp.tonyu.samples.ribbon.page.Index;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -23,10 +25,24 @@ public class Start extends Activity {
       	options.inDither=false;
       	options.inScaled=false;
       	options.inPreferredConfig=Config.ARGB_8888;
-		final Bitmap ball=BitmapFactory.decodeResource(getResources(), R.drawable.ballold,
+		Bitmap ball=BitmapFactory.decodeResource(getResources(), R.drawable.ballold,
+      			options );
+		Bitmap ribbon=BitmapFactory.decodeResource(getResources(), R.drawable.ribbon,
       			options );
 
-		final AndroidDevice dev=new AndroidDevice(this);
+
+		AndroidDevice dev=new AndroidDevice(this);
+		dev.getResourceList().add("ball", ball);
+		dev.getResourceList().add("ribbon", ribbon);
+		final Boot b = new Boot(dev, new RGlobal());
+		try {
+			//b.getPatternSequencer().add(b.getDevice().getResourceList().getImageResource("ball"));
+			//b.getPatternSequencer().add(b.getDevice().getResourceList().getImageResource("ribbon"));
+			new Index().load(b);
+		} catch(Exception e) {
+			Log.e("pp","Er2:",e);
+		}
+
 		//BitmapPatternParser a=(BitmapPatternParser) dev.getPatternParserFactory().newPatternParser(b);
 		TonyuView t=(TonyuView) dev.getScreen();//new TonyuView(this,p);
 		setContentView(t);
@@ -45,13 +61,13 @@ public class Start extends Activity {
 				new Thread(new Runnable() {
 					@Override
 					public void run() {
-						Boot b = new Boot(dev, new Global());
 						try {
-							b.getPatternSequencer().add(ball);
-							b.appear(new Object1() .construct_PlainChar(50,50,4));
-							b.appear(new Object1() .construct_PlainChar(150,30,8));
+							//b.appear(new Object1() .construct_PlainChar(50,50,4));
+							//b.appear(new Object1() .construct_PlainChar(80,30,8));
+
 							b.doLoop();
 						} catch (Exception e) {
+							Log.e("pp","Exp:",e);
 							e.printStackTrace();
 						}
 					}

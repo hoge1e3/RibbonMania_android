@@ -52,6 +52,7 @@ public class BitmapPatternParser implements PatternParser {
 				}
 				//System.out.println("\n");
 			}
+			Log.d("pp","parsed:"+res.size());
 			return res;
   		} catch (PatterParseError p) {
 			Log.d("pp","parse error! "+p);
