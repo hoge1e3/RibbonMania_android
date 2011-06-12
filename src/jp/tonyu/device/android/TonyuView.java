@@ -75,7 +75,9 @@ public class TonyuView extends SurfaceView implements Screen {
 	@Override
 	public TextSprite addTextSprite(double x, double y, String text, int color,
 			double size, double order) {
-		return null;
+		AndroidTextSprite res = new AndroidTextSprite(x,y,text,color,size,order);
+		slist.add(res);
+		return res;
 	}
 
 	@Override
@@ -126,5 +128,13 @@ public class TonyuView extends SurfaceView implements Screen {
 			break;
 		}
 		return true;
+	}
+	@Override
+	public int getScreenHeight() {
+		return getHeight();
+	}
+	@Override
+	public int getScreenWidth() {
+		return getWidth();
 	}
 }
