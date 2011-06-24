@@ -35,11 +35,13 @@ public class Start extends Activity {
 		AndroidDevice dev=new AndroidDevice(this);
 		dev.getResourceList().add("ball", ball);
 		dev.getResourceList().add("ribbon", ribbon);
-		 boot = new Boot(dev, new RGlobal());
+		 RGlobal g = new RGlobal();
+		boot = new Boot(dev, g);
+		 g.page_index=new Index();
 		try {
 			//b.getPatternSequencer().add(b.getDevice().getResourceList().getImageResource("ball"));
 			//b.getPatternSequencer().add(b.getDevice().getResourceList().getImageResource("ribbon"));
-			new Index().load(boot);
+			g.page_index.load(boot);
 		} catch(Exception e) {
 			Log.e("pp","Er2:",e);
 		}

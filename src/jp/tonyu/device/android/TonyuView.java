@@ -3,10 +3,12 @@ package jp.tonyu.device.android;
 import java.util.List;
 import java.util.Vector;
 
+import jp.tonyu.kernel.PlainChar;
 import jp.tonyu.kernel.screen.Screen;
 import jp.tonyu.kernel.screen.pattern.CharPattern;
 import jp.tonyu.kernel.screen.sprite.ImageSprite;
 import jp.tonyu.kernel.screen.sprite.LineSprite;
+import jp.tonyu.kernel.screen.sprite.Sprite;
 import jp.tonyu.kernel.screen.sprite.TextSprite;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -117,17 +119,30 @@ public class TonyuView extends SurfaceView implements Screen {
 		case MotionEvent.ACTION_MOVE:
 			mx=event.getX();
 			my=event.getY();
+			handleTouchEvent();
 			break;
 		case MotionEvent.ACTION_DOWN:
 			mx=event.getX();
 			my=event.getY();
+			handleTouchEvent();
 			break;
 		case MotionEvent.ACTION_UP:
 			mx=event.getX();
 			my=event.getY();
+			handleTouchEvent();
 			break;
 		}
 		return true;
+	}
+	public void doMouseDown(double x,double y) {
+		Sprite s = Sprite.checkClick((List)slist, x, y);
+		if (s!=null) {
+			PlainChar g = s.getGenerator();
+			if (g!=null) g.onMouseDown(x,y);
+		}
+	}
+	private void handleTouchEvent() {
+		doMouseDown(mx,my);
 	}
 	@Override
 	public int getScreenHeight() {
