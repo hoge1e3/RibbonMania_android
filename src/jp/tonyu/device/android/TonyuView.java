@@ -62,7 +62,9 @@ public class TonyuView extends SurfaceView implements Screen {
 			boolean f, double order, double angle, double alpha, double scaleX,
 			double scaleY) {
 		BitmapSprite res=new BitmapSprite(x,y,p,f,order,angle,alpha,scaleX,scaleY);
-		slist.add(res);
+		synchronized (slist) {
+			slist.add(res);
+		}
 		return res;
 	}
 
@@ -70,7 +72,9 @@ public class TonyuView extends SurfaceView implements Screen {
 	public LineSprite addLineSprite(double sx, double sy, double dx, double dy,
 			int color) {
 		AndroidLineSprite res = new AndroidLineSprite(sx,sy,dx,dy,color);
-		slist.add(res);
+		synchronized (slist) {
+			slist.add(res);
+		}
 		return res;
 	}
 
@@ -78,13 +82,17 @@ public class TonyuView extends SurfaceView implements Screen {
 	public TextSprite addTextSprite(double x, double y, String text, int color,
 			double size, double order) {
 		AndroidTextSprite res = new AndroidTextSprite(x,y,text,color,size,order);
-		slist.add(res);
+		synchronized (slist) {
+			slist.add(res);
+		}
 		return res;
 	}
 
 	@Override
 	public void clearSprites() {
-		slist.clear();
+		synchronized (slist) {
+			slist.clear();
+		}
 	}
 
 	@Override

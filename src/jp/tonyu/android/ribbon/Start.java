@@ -1,6 +1,8 @@
 package jp.tonyu.android.ribbon;
 
+import jp.tonyu.debug.TLog;
 import jp.tonyu.device.android.AndroidDevice;
+import jp.tonyu.device.android.TLogCat;
 import jp.tonyu.device.android.TonyuView;
 import jp.tonyu.kernel.Boot;
 import jp.tonyu.kernel.Global;
@@ -31,7 +33,9 @@ public class Start extends Activity {
 		Bitmap ribbon=BitmapFactory.decodeResource(getResources(), R.drawable.ribbon,
       			options );
 
-
+		TLog.setLogCat(new TLogCat());
+		TLog.d("tonyu","Start!!");
+		//Log.d("tonyu","Start2!");
 		AndroidDevice dev=new AndroidDevice(this);
 		dev.getResourceList().add("ball", ball);
 		dev.getResourceList().add("ribbon", ribbon);
